@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                                   http://www.springframework.org/schema/beans/spring-beans.xsd
+                                                   http://www.springframework.org/schema/context
+                                                   http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config />
+
+    <bean id="mainWindow" class="com.backfield.simulators.MainWindow" init-method="start">
+        <constructor-arg name="width" value="600" />
+        <constructor-arg name="height" value="600" />
+    </bean>
+
+    <bean id="threadPoolTaskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+        <property name="poolSize" value="10" />
+    </bean>
+
+    <bean id="simulatorPanel" class="com.backfield.simulators.SimulatorPanel" />
+
+    <bean id="ballGenerator" class="com.backfield.simulators.BallGenerator" />
+
+    <bean id="random" class="java.security.SecureRandom" />
+
+    <bean id="gameState" class="com.backfield.simulators.GameState" init-method="initialize" />
+
+</beans>
