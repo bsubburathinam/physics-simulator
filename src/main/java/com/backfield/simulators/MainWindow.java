@@ -79,6 +79,6 @@ public class MainWindow extends JFrame {
                 simulatorPanel.repaint();
                 gameState.lastIntegration = Calendar.getInstance().getTimeInMillis();
             }
-        }, 50);
+        }, 10);
     }
 }

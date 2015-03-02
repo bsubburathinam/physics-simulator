@@ -3,6 +3,7 @@ package com.backfield.simulators;
 import javax.annotation.Resource;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Calendar;
 
 public class SimulatorPanel extends JPanel {
 
@@ -45,6 +46,9 @@ public class SimulatorPanel extends JPanel {
                 mainWindow.getWidth() - gameState.offset,
                 gameState.offset
         );
+        long dt = Calendar.getInstance().getTimeInMillis() - gameState.lastIntegration;
+        g.setColor(Color.WHITE);
+        g.drawString("FPS: " + 1000.0 / (gameState.dts / gameState.dtCount), 50, 50);
     }
 
 }

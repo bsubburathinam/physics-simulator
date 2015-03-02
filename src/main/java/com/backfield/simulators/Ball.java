@@ -8,8 +8,9 @@ public class Ball {
     public double y = 0.0;
     public double xVelocity = 0.0;
     public double yVelocity = 0.0;
-    public int size = 0;
+    public int size = 10;
     public int radius = 0;
+    public double bounceCoefficient = 0.5;
 
     public void draw(Graphics g) {
         g.setColor(Color.CYAN);
