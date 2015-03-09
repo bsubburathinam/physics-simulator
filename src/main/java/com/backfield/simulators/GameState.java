@@ -23,12 +23,18 @@ public class GameState {
 
     public int offset = 50;
 
+    public int floor;
+
+    public int wall;
+
     public double collision(Ball a, Ball b) {
         return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
     }
 
     public void initialize() {
         int i = 0;
+        this.floor = mainWindow.getHeight() - offset;
+        this.wall = mainWindow.getWidth() - offset;
         while (i < ballCount) {
             Ball newBall = ballGenerator.get();
             boolean collides = false;
@@ -81,7 +87,6 @@ public class GameState {
                 }
             }
         }
-        int floor = mainWindow.getHeight() - offset;
         for (int i = 0; i < ballCount; i++) {
             if ((balls[i].y + balls[i].radius) >= floor) {
                 balls[i].y = floor - balls[i].radius;
@@ -92,9 +97,6 @@ public class GameState {
                 balls[i].yVelocity *= -balls[i].bounceCoefficient;
                 balls[i].xVelocity *= 0.8;
             }
-        }
-        int wall = mainWindow.getWidth() - offset;
-        for (int i = 0; i < ballCount; i++) {
             if ((balls[i].x + balls[i].radius) >= wall) {
                 balls[i].x = wall - balls[i].radius;
                 balls[i].xVelocity *= -balls[i].bounceCoefficient;
