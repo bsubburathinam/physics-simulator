@@ -1,7 +1,7 @@
 package com.backfield.simulators;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
+import java.util.*;
 
 public class GameState {
 
@@ -57,12 +57,27 @@ public class GameState {
 
     public void integrate() {
         double dt = (Calendar.getInstance().getTimeInMillis() - lastIntegration) / 1000.0;
-        for (int i = 0; i < ballCount; i++) {
-            applyGravity(balls[i], dt);
-        }
-        for (int i = 0; i < ballCount; i++) {
-            balls[i].integrate();
-        }
+        this.forEach(
+            Arrays.asList(balls),
+            new BallVisitor() {
+                @Override
+                public void visit(Ball ball, Double dt) {
+                    applyGravity(ball, dt);
+                }
+            },
+            dt
+        );
+        this.forEach(
+            Arrays.asList(balls),
+            new BallVisitor() {
+                @Override
+                public void visit(Ball ball, Double dt) {
+                    ball.integrate();
+                }
+            },
+            dt
+        );
+
         for (int x = 0; x < ballCount; x++) {
             for (int y = x + 1; y < ballCount; y++) {
                 double d = collision(balls[x], balls[y]);
@@ -111,4 +126,12 @@ public class GameState {
         dtCount++;
     }
 
+
+    private void forEach(List<Ball> balls, BallVisitor ballVisitor, Double dt)
+    {
+        for( Ball ball : balls )
+        {
+            ballVisitor.visit(ball, dt);
+        }
+    }
 }
